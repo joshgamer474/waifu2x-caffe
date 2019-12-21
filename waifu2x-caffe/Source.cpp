@@ -147,10 +147,10 @@ int main(int argc, char** argv)
 	ValueArg<double> cmdScaleRatio(TEXT("s"), TEXT("scale_ratio"),
 		TEXT("custom scale ratio"), false, 2.0, TEXT("double"), cmd);
 
-	ValueArg<double> cmdScaleWidth(TEXT("w"), TEXT("scale_width"),
+	ValueArg<double> cmdScaleWidth(TEXT("y"), TEXT("scale_width"),
 		TEXT("custom scale width"), false, 0, TEXT("double"), cmd);
 
-	ValueArg<double> cmdScaleHeight(TEXT("h"), TEXT("scale_height"),
+	ValueArg<double> cmdScaleHeight(TEXT("z"), TEXT("scale_height"),
 		TEXT("custom scale height"), false, 0, TEXT("double"), cmd);
 
 	ValueArg<tstring> cmdModelPath(TEXT(""), TEXT("model_dir"),
@@ -202,7 +202,7 @@ int main(int argc, char** argv)
 
 	// definition of command line argument : end
 
-	Arg::enableIgnoreMismatched();
+	//Arg::enableIgnoreMismatched();
 
 	// parse command line arguments
 	try
@@ -456,7 +456,7 @@ int main(int argc, char** argv)
 		tprintf(TEXT("エラー: モデルファイルが壊れています\n"));
 		return 1;
 	case Waifu2x::eWaifu2xError_FailedConstructModel:
-		tprintf(TEXT("エラー: ネットワークの構築に失敗しました\n"));
+		//tprintf(TEXT("エラー: ネットワークの構築に失敗しました\n"));
 		return 1;
 	}
 

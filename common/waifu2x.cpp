@@ -17,6 +17,8 @@
 #include <boost/iostreams/device/file_descriptor.hpp>
 #include <msgpack.hpp>
 
+#include <opencv2/imgproc/types_c.h>
+
 #include <fcntl.h>
 #include <zlib.h>
 #ifdef _MSC_VER
@@ -41,16 +43,16 @@
 #pragma comment(lib, "opencv_core" CV_VERSION_STR CV_EXT_STR)
 #pragma comment(lib, "opencv_imgcodecs" CV_VERSION_STR CV_EXT_STR)
 #pragma comment(lib, "opencv_imgproc" CV_VERSION_STR CV_EXT_STR)
-#pragma comment(lib, "IlmImf" CV_EXT_STR)
-#pragma comment(lib, "ippicvmt.lib")
-#pragma comment(lib, "libjasper" CV_EXT_STR)
-#pragma comment(lib, "libjpeg-turbo" CV_EXT_STR)
-#pragma comment(lib, "libpng" CV_EXT_STR)
-#pragma comment(lib, "libtiff" CV_EXT_STR)
-#pragma comment(lib, "libwebp" CV_EXT_STR)
-#pragma comment(lib, "zlib" CV_EXT_STR)
+//#pragma comment(lib, "IlmImf" CV_EXT_STR)
+//#pragma comment(lib, "ippicvmt.lib")
+//#pragma comment(lib, "libjasper" CV_EXT_STR)
+//#pragma comment(lib, "libjpeg-turbo" CV_EXT_STR)
+//#pragma comment(lib, "libpng" CV_EXT_STR)
+//#pragma comment(lib, "libtiff" CV_EXT_STR)
+//#pragma comment(lib, "libwebp" CV_EXT_STR)
+//#pragma comment(lib, "zlib" CV_EXT_STR)
 
-#pragma comment(lib, "libopenblas.dll.a")
+//#pragma comment(lib, "libopenblas.dll.a")
 #pragma comment(lib, "cudart.lib")
 #pragma comment(lib, "curand.lib")
 #pragma comment(lib, "cublas.lib")
@@ -58,27 +60,27 @@
 
 #ifdef _DEBUG
 #pragma comment(lib, "caffe-d.lib")
-#pragma comment(lib, "caffeproto-d.lib")
-#pragma comment(lib, "libprotobufd.lib")
-#pragma comment(lib, "glogd.lib")
-#pragma comment(lib, "gflagsd.lib")
-#pragma comment(lib, "libboost_system-vc140-mt-gd-1_61.lib")
-#pragma comment(lib, "boost_thread-vc140-mt-gd-1_61.lib")
-#pragma comment(lib, "boost_filesystem-vc140-mt-gd-1_61.lib")
-#pragma comment(lib, "boost_iostreams-vc140-mt-gd-1_61.lib")
+//#pragma comment(lib, "caffeproto-d.lib")
+//#pragma comment(lib, "libprotobufd.lib")
+//#pragma comment(lib, "glogd.lib")
+//#pragma comment(lib, "gflagsd.lib")
+//#pragma comment(lib, "libboost_system-vc140-mt-gd-1_61.lib")
+//#pragma comment(lib, "boost_thread-vc140-mt-gd-1_61.lib")
+//#pragma comment(lib, "boost_filesystem-vc140-mt-gd-1_61.lib")
+//#pragma comment(lib, "boost_iostreams-vc140-mt-gd-1_61.lib")
 //#pragma comment(lib, "zlibstaticd.lib")
 
 
 #else
 #pragma comment(lib, "caffe.lib")
-#pragma comment(lib, "caffeproto.lib")
-#pragma comment(lib, "libprotobuf.lib")
-#pragma comment(lib, "glog.lib")
-#pragma comment(lib, "gflags.lib")
-#pragma comment(lib, "libboost_system-vc140-mt-1_61.lib")
-#pragma comment(lib, "boost_thread-vc140-mt-1_61.lib")
-#pragma comment(lib, "boost_filesystem-vc140-mt-1_61.lib")
-#pragma comment(lib, "boost_iostreams-vc140-mt-1_61.lib")
+//#pragma comment(lib, "caffeproto.lib")
+//#pragma comment(lib, "libprotobuf.lib")
+//#pragma comment(lib, "glog.lib")
+//#pragma comment(lib, "gflags.lib")
+//#pragma comment(lib, "libboost_system-vc140-mt-1_61.lib")
+//#pragma comment(lib, "boost_thread-vc140-mt-1_61.lib")
+//#pragma comment(lib, "boost_filesystem-vc140-mt-1_61.lib")
+//#pragma comment(lib, "boost_iostreams-vc140-mt-1_61.lib")
 #endif
 #endif
 

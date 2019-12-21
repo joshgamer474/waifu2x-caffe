@@ -105,7 +105,7 @@ private:
 		if (lang.FileName.length() == 0)
 			return;
 
-		const auto LangFilePath = LangBaseDir + lang.FileName;
+		const auto LangFilePath = LangBaseDir + std::string(lang.FileName.begin(), lang.FileName.end());
 
 		rapidjson::Document d;
 		std::vector<char> jsonBuf;
@@ -113,7 +113,11 @@ private:
 		FILE *fp = nullptr;
 		try
 		{
+#ifdef UNICODE
 			fp = _wfopen(LangFilePath.c_str(), L"rb");
+#else
+            fp = fopen(LangFilePath.c_str(), "rb");
+#endif // UNICODE
 			if (!fp)
 				return;
 

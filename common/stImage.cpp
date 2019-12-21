@@ -5,6 +5,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
+#include <opencv2/imgproc/types_c.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
