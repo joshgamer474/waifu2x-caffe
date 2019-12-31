@@ -69,7 +69,7 @@ link_directories(${CONAN_LIB_DIRS}
     ${USE_CUDA_PATH}/lib/x64)
 
 # Create common
-add_library(common
+add_library(common STATIC
     ${COMMON})
 target_link_libraries(common
     ${CONAN_LIBS})

@@ -14,18 +14,19 @@ class waifu2xcaffe(ConanFile):
                "cpu_only": [True, False]}
     generators = "cmake"
     requires = (
-        "boost/1.71.0@conan/stable",
+        "boost/1.68.0@conan/stable",
         "caffe/1.0.0@josh/lltcggie",
         "msgpack/3.2.0@bincrafters/stable",
         "rapidjson/1.1.0@bincrafters/stable",
         "stb/20190512@conan/stable",
-        "tclap/1.2.1@josh/vcpkg",
+        "tclap/1.2.2@josh/testing",
         "spdlog/0.16.3@bincrafters/stable",
         )
     exports_sources = "bin/*", "common/*", "**/*.cpp", "**/*.h","CMakeLists.txt"
-    default_options = "shared=False", "cpu_only=False"
+    default_options = "shared=True", "cpu_only=False"
 
     def configure(self):
+        self.options["boost"].shared = self.options.shared
         self.options["caffe"].shared = self.options.shared
 
     def imports(self):
