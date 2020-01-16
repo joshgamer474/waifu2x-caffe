@@ -20,7 +20,7 @@ class waifu2xcaffe(ConanFile):
         "msgpack/3.2.0@bincrafters/stable",
         "rapidjson/1.1.0@bincrafters/stable",
         "stb/20190512@conan/stable",
-        "tclap/1.2.2@josh/testing",
+        "tclap/1.2.1@lasote/vcpkg",
         "spdlog/0.16.3@bincrafters/stable",
         )
     exports_sources = "bin/**", "common/*", "**/*.cpp", "**/*.h","CMakeLists.txt"
