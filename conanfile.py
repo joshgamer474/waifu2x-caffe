@@ -9,6 +9,7 @@ class waifu2xcaffe(ConanFile):
     description = "A screen sharing application"
     settings = {"os" : ["Windows"], 
                 "arch": ["x86", "x86_64"],
+                "build_type": ["Debug", "Release", "RelWithDebInfo"],
                 "compiler": ["Visual Studio"]}
     options = {"shared": [True, False],
                "cpu_only": [True, False]}
@@ -22,16 +23,15 @@ class waifu2xcaffe(ConanFile):
         "tclap/1.2.2@josh/testing",
         "spdlog/0.16.3@bincrafters/stable",
         )
-    exports_sources = "bin/*", "common/*", "**/*.cpp", "**/*.h","CMakeLists.txt"
+    exports_sources = "bin/**", "common/*", "**/*.cpp", "**/*.h","CMakeLists.txt"
     default_options = "shared=True", "cpu_only=False"
 
     def configure(self):
-        self.options["boost"].shared = self.options.shared
+        self.options["boost"].shared = True
         self.options["caffe"].shared = self.options.shared
 
     def imports(self):
-        self.copy("*.dll", src="bin", dst="bin")
-        self.copy("*", src="bin", dst="bin", root_package="waifu2x-caffe")
+        self.copy("*.dll", dst="bin", keep_path=False)
 
     def build(self):
         cmake = CMake(self)
@@ -44,8 +44,14 @@ class waifu2xcaffe(ConanFile):
         cmake.build()
         
     def package(self):
-        self.copy("*", src="bin", dst="bin")
+        self.copy("*", src="bin", dst="bin", excludes="**/cudnn64_7.dll")
         self.copy("*.h", src="common", dst="include")
         self.copy("*_export.h", dst="include", keep_path=False)
         self.copy("*.lib", src="lib", dst="lib")
         self.copy("*.pdb", dst="lib", keep_path=False)
+
+    def package_info(self):
+        if self.settings.build_type == "Debug":
+            self.cpp_info.libs = ["waifu2x-common-d", "waifu2x-caffe-d"]
+        else:
+           self.cpp_info.libs = ["waifu2x-common", "waifu2x-caffe"]

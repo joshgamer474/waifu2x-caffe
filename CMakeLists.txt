@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.9)
-project (waifu2x_caffe)
+project (waifu2x-caffe)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
@@ -60,7 +60,7 @@ message("********************************************")
 message("CONAN_LIBS: ${CONAN_LIBS}")
 message("********************************************")
 
-include_directories(common
+include_directories(waifu2x-common
     include
     ${USE_CUDA_PATH}/include
     ${CONAN_INCLUDE_DIRS})
@@ -69,35 +69,57 @@ link_directories(${CONAN_LIB_DIRS}
     ${USE_CUDA_PATH}/lib/x64)
 
 # Create common
-add_library(common STATIC
+add_library(waifu2x-common
     ${COMMON})
-target_link_libraries(common
+target_link_libraries(waifu2x-common
     ${CONAN_LIBS})
+# Force debug symbols
+target_compile_options(waifu2x-common PRIVATE
+    $<$<CXX_COMPILER_ID:MSVC>:/Zi>)
 
 # Create waifu2x caffe library
 add_library(waifu2x-caffe
     ${WAIFU2X_CAFFE_DLL})
 target_link_libraries(waifu2x-caffe
-    common
+    waifu2x-common
     ${CONAN_LIBS})
-generate_export_header(waifu2x-caffe)
 
+generate_export_header(waifu2x-caffe)
 
 # Create waifu2x-caffe cli executable
 add_executable(waifu2x-caffe-cli
     ${WAIFU2X_CAFFE_CLI})
 target_link_libraries(waifu2x-caffe-cli
-    common
+    waifu2x-common
     waifu2x-caffe
-    ${CONAN_LIBS}
-    "-FORCE:multiple") # Forced multiple definitions (!) for protobuf and cuda compiled protobuf
+    ${CONAN_LIBS})
+    #"-FORCE:multiple") # Force multiple definitions (!) to allow both protobuf and cuda-compiled-protobuf definitions
 
 
 # Create GUI executable
 #add_executable(waifu2x-caffe-gui
 #    ${WAIFU2X_CAFFE_GUI})
 #target_link_libraries(waifu2x-caffe-gui
-#    common
+#    waifu2x-common
 #    waifu2x-caffe
 #    ${CONAN_LIBS}
 #    "-FORCE:multiple")
+
+# Normalize CUDA_PATH
+file(TO_CMAKE_PATH "$ENV{CUDA_PATH}" ENV_CUDA_PATH)
+
+# Copy cudnn64_7.dll to bin
+message("Copying ${ENV_CUDA_PATH}/bin/cudnn64_7.dll to ${CMAKE_BINARY_DIR}/bin/cudnn_data/cudnn64_7.dll")
+add_custom_command(TARGET waifu2x-caffe POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy 
+    ${ENV_CUDA_PATH}/bin/cudnn64_7.dll
+    ${CMAKE_BINARY_DIR}/bin/cudnn_data/cudnn64_7.dll)
+
+# Copy ./bin to bin
+message("##################################")
+message("Copying directory ${CMAKE_CURRENT_SOURCE_DIR}/bin to ${CMAKE_BINARY_DIR}/bin")
+message("##################################")
+add_custom_command(TARGET waifu2x-caffe POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_CURRENT_SOURCE_DIR}/bin
+    ${CMAKE_BINARY_DIR}/bin)
