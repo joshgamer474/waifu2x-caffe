@@ -57,7 +57,7 @@ public:
 	}
 };
 
-class Waifu2x
+class __declspec(dllexport) Waifu2x
 {
 public:
 	struct stInfo
